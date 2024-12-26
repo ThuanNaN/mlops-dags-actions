@@ -10,7 +10,7 @@ model_config:
     num_layers: 2
 
 train_config:
-    run_name: rnn_trigger_jenkins
+    run_name: rnn_bas2
     seed: 3
     epochs: 10
     batch_size: 16
