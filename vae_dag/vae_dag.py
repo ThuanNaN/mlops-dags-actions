@@ -89,4 +89,4 @@ with DAG(
 
 
 # Define task dependencies
-create_temp_dir_task >> train_model_task
+train_model_task
