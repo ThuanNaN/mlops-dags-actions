@@ -31,17 +31,17 @@ default_args = {
 def create_temp_dir():
     cuda_available = True if torch.cuda.is_available() else False
     print(f"Using GPU: {cuda_available}")
-    path_save = Path("./vae_tmp_dir") / "v0.1"
-    path_save.mkdir(parents=True, exist_ok=True)
-    if not path_save.exists():
-        raise FileNotFoundError(f"Failed to create directory: {path_save}")
+    # path_save = Path("./vae_tmp_dir") / "v0.1"
+    # path_save.mkdir(parents=True, exist_ok=True)
+    # if not path_save.exists():
+    #     raise FileNotFoundError(f"Failed to create directory: {path_save}")
 
 
 def fetch_data():
     config = load_config()
     db_params = {
         "host": config["db_host"],
-        "database": config["database"],   
+        "dbname": config["database"],   
         "user": config["user"],      
         "password": config["password"],  
         "port": config["port"]    
@@ -75,11 +75,11 @@ with DAG(
     schedule_interval=timedelta(days=1),
     ) as dag:
 
-    # create_temp_dir_task = PythonOperator(
-    #     task_id='create_temp_dir',
-    #     python_callable=create_temp_dir,
-    #     dag=dag,
-    # )
+    create_temp_dir_task = PythonOperator(
+        task_id='create_temp_dir',
+        python_callable=create_temp_dir,
+        dag=dag,
+    )
 
     train_model_task = PythonOperator(
         task_id='train_model',
@@ -89,4 +89,4 @@ with DAG(
 
 
 # Define task dependencies
-train_model_task
+create_temp_dir_task >> train_model_task
