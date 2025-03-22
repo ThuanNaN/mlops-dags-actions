@@ -39,8 +39,15 @@ def create_temp_dir():
 
 def fetch_data():
     config = load_config()
+    db_params = {
+        "host": config["db_host"],
+        "database": config["database"],   
+        "user": config["user"],      
+        "password": config["password"],  
+        "port": config["port"]    
+    }
     dataset_name = config["dataset_name"]
-    dataset = ColorizationDataset(dataset_name)
+    dataset = ColorizationDataset(dataset_name, db_params)
     return dataset
 
 def create_model():

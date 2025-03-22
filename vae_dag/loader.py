@@ -10,19 +10,11 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-db_params = {
-    "host": "192.168.1.7",
-    "database": "image_db",   
-    "user": "postgres",      
-    "password": "aivn2025",  
-    "port": "5454"     
-}
-
 def binary_to_image(binary_data):
     buffer = BytesIO(binary_data)
     return Image.open(buffer)
 
-def load_image_from_db(table_name: str):
+def load_image_from_db(table_name: str, db_params):
     connection = None
     cursor = None
     original_images = []
@@ -59,8 +51,8 @@ def load_image_from_db(table_name: str):
 
 
 class ColorizationDataset(torch.utils.data.Dataset):
-    def __init__(self, data_name: str):
-        self.original_images, self.grayscale_images = load_image_from_db(data_name)
+    def __init__(self, data_name: str, db_params: dict):
+        self.original_images, self.grayscale_images = load_image_from_db(data_name, db_params)
         self.transform = transforms.Compose([
             transforms.ToTensor(),
         ])
@@ -75,12 +67,3 @@ class ColorizationDataset(torch.utils.data.Dataset):
 
     def __len__(self):
         return len(self.original_images)
-
-
-if __name__ == "__main__":
-    dataset = ColorizationDataset("source_images")
-    print(f"Dataset length: {len(dataset)}")
-    original_image, grayscale_image = dataset[0]
-    print(f"Original image shape: {original_image.shape}")
-    print(f"Grayscale image shape: {grayscale_image.shape}")
-    print("Data loaded successfully!")

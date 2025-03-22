@@ -5,3 +5,8 @@ num_epochs: 10
 batch_size: 4
 dataset_name: source_images
 train_ratio: 0.8
+db_host: postgres_image_db
+database: image_db
+user: postgres
+password: aivn2025
+port: 5432
