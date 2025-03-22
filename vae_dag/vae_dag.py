@@ -75,11 +75,11 @@ with DAG(
     schedule_interval=timedelta(days=1),
     ) as dag:
 
-    create_temp_dir_task = PythonOperator(
-        task_id='create_temp_dir',
-        python_callable=create_temp_dir,
-        dag=dag,
-    )
+    # create_temp_dir_task = PythonOperator(
+    #     task_id='create_temp_dir',
+    #     python_callable=create_temp_dir,
+    #     dag=dag,
+    # )
 
     train_model_task = PythonOperator(
         task_id='train_model',
