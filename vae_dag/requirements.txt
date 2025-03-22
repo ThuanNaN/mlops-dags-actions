@@ -1,2 +1,9 @@
+psycopg2-binary
+python-dotenv==1.0.1
+kafka-python==2.1.2
+bs4==0.0.2
+schedule==1.2.2
+pillow==11.1.0
+numpy==1.26.4
 torch==2.2.2
-pillow
+torchvision
