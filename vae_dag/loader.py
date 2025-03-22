@@ -11,7 +11,7 @@ transform = transforms.Compose([
 ])
 
 db_params = {
-    "host": "localhost",     
+    "host": "192.168.1.7",
     "database": "image_db",   
     "user": "postgres",      
     "password": "aivn2025",  
